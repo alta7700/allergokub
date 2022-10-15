@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        form {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .field {
+            width: 100%;
+            font-size: 24px;
+        }
+        hr {
+            height: 0;
+            border-width: 1px 0 0 0;
+            border-color: black;
+            border-style: solid;
+        }
+        .excel-link {
+            text-decoration: none;
+            color: black;
+            background-color: green;
+            width: max-content;
+            padding: 10px;
+            border: 1px black solid;
+            transition-duration: 300ms;
+        }
+        .excel-link:hover {
+            background-color: yellow;
+        }
+    </style>
+    <title>Дневное пыление</title>
+</head>
+<body>
+
+    <form method="post" enctype="multipart/form-data">
+        {% for field in form %}
+            {% csrf_token %}
+            <div class="field">
+                <ul class="errorlist">
+                {% for error in field.errors %}
+                    <li style="font-size:14px">{{ error|linebreaksbr }}</li>
+                {% endfor %}
+                </ul>
+<!--                {{ field.errors }}-->
+                {{ field.label_tag }} {{ field }}
+                <hr/>
+            </div>
+        {% endfor %}
+        <button type="submit" value="_import_day">Вот эти данные добавь</button>
+        <a href="{% url 'import_calendar' %}?get_excel_template=1" class="excel-link">Скинь шаблон</a>
+    </form>
+
+</body>
+</html>

@@ -9,7 +9,7 @@ BASE_DIR = SETTINGS_DIR.parent
 if (SETTINGS_DIR / '.env').exists():
     from dotenv import dotenv_values
     env = dotenv_values(SETTINGS_DIR / '.env')
-    DEBUG = False
+    DEBUG = True
 else:
     from os import environ
     env = {**environ}
